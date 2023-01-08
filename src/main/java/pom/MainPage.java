@@ -7,25 +7,6 @@ import org.openqa.selenium.WebElement;
 
 public class MainPage {
     public WebDriver driver;
-    //локаторы вопросов
-    private final By howMuchCost = By.id("accordion__heading-0");
-    private final By severalScooters = By.id("accordion__heading-1");
-    private final By rentalTime = By.id("accordion__heading-2");
-    private final By orderToday = By.id("accordion__heading-3");
-    private final By extendOrder = By.id("accordion__heading-4");
-    private final By bringCharging = By.id("accordion__heading-5");
-    private final By cancelOrder = By.id("accordion__heading-6");
-    private final By beyondMKAD = By.id("accordion__heading-7");
-
-    //локаторы ответов
-    private final By howMuchCostAnswer = By.xpath(".//div[(@id='accordion__panel-0' and not(@hidden))]/p");
-    private final By severalScootersAnswer = By.xpath(".//div[(@id='accordion__panel-1' and not(@hidden))]/p");
-    private final By rentalTimeAnswer = By.xpath(".//div[(@id='accordion__panel-2' and not(@hidden))]/p");
-    private final By orderTodayAnswer = By.xpath(".//div[(@id='accordion__panel-3' and not(@hidden))]/p");
-    private final By extendOrderAnswer = By.xpath(".//div[(@id='accordion__panel-4' and not(@hidden))]/p");
-    private final By bringChargingAnswer = By.xpath(".//div[(@id='accordion__panel-5' and not(@hidden))]/p");
-    private final By cancelOrderAnswer = By.xpath(".//div[(@id='accordion__panel-6' and not(@hidden))]/p");
-    private final By beyondMKADAnswer = By.xpath(".//div[(@id='accordion__panel-7' and not(@hidden))]/p");
 
     // локатор кнопки "Заказать" в шапке страницы
     private final By orderHeaderButton = By.xpath(".//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']");
@@ -53,63 +34,15 @@ public class MainPage {
         return driver.findElement(answerLocator).getText();
     }
     // Найти локатор вопроса по номеру вопроса
-    private By getQuestionLocatorById(int questionId){
-        if (questionId == 1){
-            return howMuchCost;
-        }
-        if (questionId == 2){
-            return severalScooters;
-        }
-        if (questionId == 3){
-            return rentalTime;
-        }
-        if (questionId == 4){
-            return orderToday;
-        }
-        if (questionId == 5){
-            return extendOrder;
-        }
-        if (questionId == 6){
-            return bringCharging;
-        }
-        if (questionId == 7){
-            return cancelOrder;
-        }
-        if (questionId == 8){
-            return beyondMKAD;
-        }
-        //если по указанному id не найден локатор
-        return null;
+    private By getQuestionLocatorById(int questionNumber){
+        String questionId = String.format("accordion__heading-%s", questionNumber - 1);
+        return By.id(questionId);
     }
 
     // Найти локатор ответа по номеру вопроса
-    private By getAnswerLocatorById(int answerId){
-        if (answerId == 1){
-            return howMuchCostAnswer;
-        }
-        if (answerId == 2){
-            return severalScootersAnswer;
-        }
-        if (answerId == 3){
-            return rentalTimeAnswer;
-        }
-        if (answerId == 4){
-            return orderTodayAnswer;
-        }
-        if (answerId == 5){
-            return extendOrderAnswer;
-        }
-        if (answerId == 6){
-            return bringChargingAnswer;
-        }
-        if (answerId == 7){
-            return cancelOrderAnswer;
-        }
-        if (answerId == 8){
-            return beyondMKADAnswer;
-        }
-        //если по указанному id не найден локатор
-        return null;
+    private By getAnswerLocatorById(int questionNumber){
+        String xpath = String.format(".//div[(@id='accordion__panel-%s' and not(@hidden))]/p", questionNumber - 1);
+        return By.xpath(xpath);
     }
 
     //Нажать на кнопку "Заказать" в шапке страницы
